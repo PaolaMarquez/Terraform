@@ -1,0 +1,7 @@
+do_token = "dop_v1_a1ac381812a9a549065cc706980d9917350d7197995a5e697a5ad89841019d3b"
+pub_key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMTUKr+3dcz0x6zRHv6wTW/tLU43/AlpuEH7zsSCbbIAj1R4s95QcVThjcisy2TbClh1tBQ7abL6Hz4zYN21hPY= paola@VenP"
+pvt_key = "C:/Users/paola/.ssh/dokey"
+ssh_fingerprint  = "6c:42:97:7e:f3:b4:ff:44:30:a6:a8:20:86:f2:20:e4"
+name_project = "web"
+region = "sfo3"
+size = "s-1vcpu-512mb-10gb"
