@@ -1,10 +1,14 @@
-variable "ssh_fingerprint" {}
+# variable "ssh_fingerprint" {}
 variable "pvt_key" {}
 variable "pub_key" {}
 variable "do_token" {}
 variable "region" {}
 variable "name_project" {}
 variable "size" {} 
+variable "github_link" {}
+variable "github_repo" {}
+variable "docker_link" {}
+variable "docker_compose_link" {}
 
 terraform {
   required_providers {
