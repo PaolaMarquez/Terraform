@@ -9,6 +9,8 @@ variable "github_link" {}
 variable "github_repo" {}
 variable "docker_link" {}
 variable "docker_compose_link" {}
+variable "puerto" {}
+variable "command" {}
 
 terraform {
   required_providers {
