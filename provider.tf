@@ -11,6 +11,7 @@ variable "docker_link" {}
 variable "docker_compose_link" {}
 variable "puerto" {}
 variable "command" {}
+variable "domain" {}
 
 terraform {
   required_providers {

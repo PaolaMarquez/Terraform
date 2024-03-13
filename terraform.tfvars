@@ -1,7 +1,7 @@
 do_token = ""
 pub_key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMTUKr+3dcz0x6zRHv6wTW/tLU43/AlpuEH7zsSCbbIAj1R4s95QcVThjcisy2TbClh1tBQ7abL6Hz4zYN21hPY= paola@VenP"
 pvt_key = "C:/Users/paola/.ssh/id_ecdsa"
-name_project = "web2"
+name_project = "web"
 region = "sfo3"
 size = "s-1vcpu-512mb-10gb"
 github_link = "https://github.com/ericz619/sample-node-app.git"
@@ -10,3 +10,4 @@ docker_link = "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal s
 docker_compose_link = "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)"
 puerto = "8080"
 command ="sudo -i -u myuser"
+domain = "deploy-tap.site"

@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "web2" {
+resource "digitalocean_droplet" "web" {
   image = "ubuntu-23-10-x64"
   name = var.name_project
   region = var.region
@@ -45,12 +45,16 @@ resource "digitalocean_droplet" "web2" {
             "sudo usermod -aG docker myuser",
             "${var.command} bash -c 'cd ${var.github_repo}; docker build .'",
             "${var.command} bash -c 'cd ${var.github_repo}; docker run -it -d -p ${var.puerto}:${var.puerto} $(docker images -q | head -n 1)'",
+            "curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${var.do_token}' -d '{\"type\":\"A\",\"name\":\"${var.github_repo}.${var.domain}\",\"data\":\"${self.ipv4_address}\",\"priority\":null,\"port\":null,\"ttl\":3600,\"weight\":null,\"flags\":null,\"tag\":null}' 'https://api.digitalocean.com/v2/domains/${var.domain}/records'",
+            "curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${var.do_token}' -d '{\"type\": \"CNAME\",\"name\": \"www.${var.github_repo}.${var.domain}\",\"data\": \"${var.github_repo}.\",\"priority\":null,\"port\":null,\"ttl\":1800,\"weight\":null,\"flags\":null,\"tag\":null}' 'https://api.digitalocean.com/v2/domains/${var.domain}/records'",
+            "echo 'server { listen 80; server_name ${var.github_repo}.${var.domain} www.${var.github_repo}.${var.domain}; location / {proxy_pass http://${self.ipv4_address}:${var.puerto}/; proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection 'upgrade'; proxy_set_header Host $host; proxy_cache_bypass $http_upgrade; proxy_set_header X-Real-IP $remote_addr;} }' > /etc/nginx/sites-available/${var.github_repo}.${var.domain}",
+            # "echo 'server { listen 80;server_name ${var.github_repo}.${var.domain} www.${var.github_repo}.${var.domain}; location / {proxy_pass http://${self.ipv4_address}:${var.puerto}/ ;proxy_http_version 1.1;proxy_set_header Upgrade $http_upgrade;proxy_set_header Connection 'upgrade';proxy_set_header Host $host;proxy_cache_bypass $http_upgrade;proxy_set_header X-Real-IP $remote_addr;} }' > /etc/nginx/sites-available/${var.github_repo}.${var.domain}",
             "echo 'server { listen 80; location / { proxy_pass http://${self.ipv4_address}:${var.puerto}/; } }' > /etc/nginx/sites-available/default",
-            # "echo 'server { listen 80; location / { proxy_pass http://${self.ipv4_address}:${var.puerto}/; } listen 443 ssl http2; listen [::]:443 ssl http2; }' > /etc/nginx/sites-available/default",
-            "service nginx restart",
-
-            "",
-            "",
+            "sudo ln -s /etc/nginx/sites-available/${var.github_repo}.${var.domain} /etc/nginx/sites-enabled/",
+            "sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf",
+            "sudo bash -c 'cd /etc/nginx/sites-enabled; sudo unlink default'",
+            "sudo service nginx restart",
+            "sudo apt update",
         ]
     }
 }
