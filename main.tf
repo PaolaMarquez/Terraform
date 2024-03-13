@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "web" {
+resource "digitalocean_droplet" "web2" {
   image = "ubuntu-23-10-x64"
   name = var.name_project
   region = var.region
@@ -30,23 +30,27 @@ resource "digitalocean_droplet" "web" {
             "sudo chmod 700 /home/myuser/.ssh",
             "sudo chmod 600 /home/myuser/.ssh/authorized_keys",
             "sudo usermod -aG sudo myuser",
-            "${var.command} apt-get -y install nginx",  #instalar nginx
-            "sudo apt-get update",  #Antes estaba la de Quevedo
+            "sudo apt-get -y install nginx",  #instalar nginx
+            "sudo apt update",  #Antes estaba la de Quevedo
             "${var.command} git clone ${var.github_link}",
             "sudo apt update", #instalar docker
-            "${var.command} DEBIAN_FRONTEND=noninteractive apt install -y apt-transport-https ca-certificates curl software-properties-common", #saca cuadro morado
-            "${var.command} curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${var.command} apt-key add -", #este no tenía sudo
-            "${var.command} add-apt-repository ${var.docker_link} -y",
-            "${var.command} apt update",
+            "sudo DEBIAN_FRONTEND=noninteractive apt install -y apt-transport-https ca-certificates curl software-properties-common", #saca cuadro morado
+            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -", #este no tenía sudo
+            "sudo add-apt-repository ${var.docker_link} -y",
+            "sudo apt update",
             "apt-cache policy docker-ce",
-            "${var.command} DEBIAN_FRONTEND=noninteractive apt-get install -y docker-ce", #saca cuadro morado
-            "${var.command} curl -L ${var.docker_compose_link} -o /usr/local/bin/docker-compose",   #instalar docker compose
-            "${var.command} chmod +x /usr/local/bin/docker-compose",
-            "${var.command} usermod -aG docker myuser",
+            "sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker-ce", #saca cuadro morado
+            "sudo curl -L ${var.docker_compose_link} -o /usr/local/bin/docker-compose",   #instalar docker compose
+            "sudo chmod +x /usr/local/bin/docker-compose",
+            "sudo usermod -aG docker myuser",
             "${var.command} bash -c 'cd ${var.github_repo}; docker build .'",
             "${var.command} bash -c 'cd ${var.github_repo}; docker run -it -d -p ${var.puerto}:${var.puerto} $(docker images -q | head -n 1)'",
             "echo 'server { listen 80; location / { proxy_pass http://${self.ipv4_address}:${var.puerto}/; } }' > /etc/nginx/sites-available/default",
+            # "echo 'server { listen 80; location / { proxy_pass http://${self.ipv4_address}:${var.puerto}/; } listen 443 ssl http2; listen [::]:443 ssl http2; }' > /etc/nginx/sites-available/default",
             "service nginx restart",
+
+            "",
+            "",
         ]
     }
 }
