@@ -1,4 +1,4 @@
-do_token = ""
+do_token = "dop_v1_7f958561c4af39b60be897fedc29bf927722239c81543463c85efa0f841b201c"
 pub_key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMTUKr+3dcz0x6zRHv6wTW/tLU43/AlpuEH7zsSCbbIAj1R4s95QcVThjcisy2TbClh1tBQ7abL6Hz4zYN21hPY= paola@VenP"
 pvt_key = "C:/Users/paola/.ssh/id_ecdsa"
 name_project = "web"
@@ -11,3 +11,4 @@ docker_compose_link = "https://github.com/docker/compose/releases/download/1.26.
 puerto = "8080"
 command ="sudo -i -u myuser"
 domain = "deploy-tap.site"
+email = "paola.marquez@correo.unimet.edu.ve"
