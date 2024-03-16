@@ -63,7 +63,6 @@ resource "null_resource" "change_user" {
           "sudo apt update",
           "sudo DEBIAN_FRONTEND=noninteractive apt install -y docker-ce",
           "sudo usermod -aG docker myuser",
-          # "su - myuser",
 
           #Docker Compose
           "mkdir -p ~/.docker/cli-plugins/ && curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose",  #REVISAR
@@ -87,7 +86,15 @@ resource "null_resource" "change_user" {
           "sudo ln -s /etc/nginx/sites-available/${var.github_repo}.${var.domain} /etc/nginx/sites-enabled/",
           "sudo bash -c 'cd /etc/nginx/sites-enabled; sudo unlink default'",
           "sudo systemctl restart nginx",
-          "sudo apt update"
+
+          #SSL certificate
+          # "sudo add-apt-repository ppa:certbot/certbot",
+          "sudo apt-get update",
+          "sudo DEBIAN_FRONTEND=noninteractive apt-get install certbot python3-certbot-nginx -y",
+          # "sleep 1m",
+          "sudo certbot --nginx -n -d ${var.github_repo}.${var.domain} -d www.${var.github_repo}.${var.domain} --agree-tos -m ${var.email} --no-eff-email --redirect",            
+          "sudo certbot renew --dry-run",
+          # "sudo service nginx restart",
       ]
   }
 }

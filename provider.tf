@@ -13,6 +13,7 @@ variable "puerto" {}
 variable "command" {}
 variable "domain" {}
 variable "pwd" {}
+variable "email" {}
 
 terraform {
   required_providers {
