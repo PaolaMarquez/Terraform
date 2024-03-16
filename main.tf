@@ -87,6 +87,7 @@ resource "null_resource" "change_user" {
           "sudo ln -s /etc/nginx/sites-available/${var.github_repo}.${var.domain} /etc/nginx/sites-enabled/",
           "sudo bash -c 'cd /etc/nginx/sites-enabled; sudo unlink default'",
           "sudo systemctl restart nginx",
+          "sudo apt update"
       ]
   }
 }
