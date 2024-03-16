@@ -12,7 +12,7 @@ variable "docker_compose_link" {}
 variable "puerto" {}
 variable "command" {}
 variable "domain" {}
-variable "password" {}
+variable "pwd" {}
 
 terraform {
   required_providers {
