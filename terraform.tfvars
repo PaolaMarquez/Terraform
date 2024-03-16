@@ -1,4 +1,4 @@
-do_token = ""
+do_token = "dop_v1_02dac99d8dab470ae1cb3a2391917b68229ee4997740de188e018e229f3caa83"
 pub_key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMTUKr+3dcz0x6zRHv6wTW/tLU43/AlpuEH7zsSCbbIAj1R4s95QcVThjcisy2TbClh1tBQ7abL6Hz4zYN21hPY= paola@VenP"
 pvt_key = "C:/Users/paola/.ssh/id_ecdsa"
 name_project = "web"
